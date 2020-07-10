@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@300;400;500;700&family=Lato&display=swap');
+
+/* font-family: 'Grenze Gotisch', cursive;
+font-family: 'Lato', sans-serif; */
+
+body{
+    background: #434136;
+    
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent;
+    font-size: 1rem;
+    color:white;
+    text-align: center;
+}
+nav ul{
+    display: flex;
+    margin-right: .3em;
+    list-style: none;
+}
+li{
+    margin-right: .3em;
+    padding: .3em;
+}
+li:last-child{
+    background-color: #b46750;
+}
+ul a{
+    text-decoration: none;
+    color: white;
+}
+@media (max-width: 768px){
+    header{
+        flex-direction: column;
+    }
+    nav ul{
+        flex-direction: column;
+    }
+}
