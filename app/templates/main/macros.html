@@ -9,8 +9,8 @@
             </div>
             <div class="card-footer">
                 <div class="react">
-                    <a href=""><img src="https://img.icons8.com/cotton/20/000000/thumb-up--v1.png"/></a>
-                    <a href=""><img src="https://img.icons8.com/cotton/20/000000/thumbs-down--v4.png"/></a>
+                    <a href="{{url_for('main.upvote', pitch_id=pitch.id)}}"><img src="https://img.icons8.com/cotton/24/000000/thumb-up--v1.png"/><span>{{pitch.upvotes}}</span></a>
+                    <a href="{{url_for('main.downvote', pitch_id=pitch.id)}}"><img src="https://img.icons8.com/cotton/24/000000/thumbs-down--v4.png"/><span>{{pitch.downvotes}}</span></a>
                 </div>                
                 <button type="submit" class="btn btn-info">Comment</button>
             </div>      
