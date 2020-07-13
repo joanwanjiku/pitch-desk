@@ -6,6 +6,13 @@ font-family: 'Lato', sans-serif; */
 body{
     background: #434136;
     color: white;    
+    font-family: 'Lato', sans-serif; 
+}
+.btn{
+    background-color: #b46750; 
+}
+.btn:hover{
+    background-color: #b4675093;
 }
 header{
     display: flex;
@@ -51,6 +58,38 @@ ul a:hover{
     font-family: 'Grenze Gotisch', cursive;
     border-bottom: 2px #b5b496 solid;
 }
+
+.card{
+border-right: #b46750;
+}
+.card-header{
+    background-color: rgba(0, 0, 0, 0.19);
+    border-radius: 2%;
+    padding: .2em;
+    margin: .2em;
+    text-align: center;
+}
+.card-header h1{
+    font-family: 'Grenze Gotisch', cursive;
+}
+.card-footer{
+    background-color: rgba(0, 0, 0, 0.19);
+    padding: .2em;
+    margin: .2em;
+    display: flex;
+}
+label{
+    font-weight: 500;
+    color: #b46750;
+    float: left;
+}
+.mt-12{
+    margin-top: 2em;
+}
+.react img{
+    margin-right: .2em;
+}
+
 @media (max-width: 768px){
     header{
         flex-direction: column;
