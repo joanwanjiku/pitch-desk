@@ -59,12 +59,31 @@ class Pitch(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     upvotes = db.Column(db.Integer)
     downvotes = db.Column(db.Integer)
+    comments = db.relationship('Comment', backref='pitch', lazy='dynamic')
 
     def save_pitch(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def get_pitches(cls):
-        pitches = Pitch.query.all()
+    def get_pitches(cls, category):
+        pitches = Pitch.query.filter_by(category_id=category)
         return pitches
+
+    @classmethod
+    def get_pitch_by_id(cls, id):
+        pitch = Pitch.query.filter_by(id=id).first()
+        return pitch
+
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(255))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitch.id'))
+
+    @classmethod
+    def get_all_comments(cls, id):
+        comments = Comment.query.filter_by(pitch_id= id).all()
+        return comments
+
