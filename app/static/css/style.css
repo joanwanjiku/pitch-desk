@@ -8,6 +8,9 @@ body{
     color: white;    
     font-family: 'Lato', sans-serif; 
 }
+h3{
+    font-size: 700;
+}
 .btn{
     background-color: #b46750; 
 }
@@ -23,6 +26,9 @@ header{
     font-family: 'Grenze Gotisch', cursive;
     text-align: center;
     margin: .2em;
+}
+header a{
+    text-decoration: none;
 }
 nav ul{
     display: flex;
@@ -77,6 +83,7 @@ border-right: #b46750;
     padding: .2em;
     margin: .2em;
     display: flex;
+    justify-content: space-between;
 }
 label{
     font-weight: 500;
