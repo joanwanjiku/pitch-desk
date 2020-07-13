@@ -3,8 +3,25 @@
 {% block content %}
 
 <div class="container">
-    <div class="row mt-12">
-        {{ macro.displayPitches(pitches) }} 
+    <div class="row">
+        <h3 style="border-bottom: 2px #d08e73 solid;">Job Pitches</h3>
+        {{ macro.displayPitches(job_pitches) }} 
     </div>
+    <div class="row mt-12">
+        <h3 style="border-bottom: 2px #d08e73 solid;">Movie pitches</h3>
+        {{ macro.displayPitches(movie_pitches) }} 
+
+    </div>
+    <div class="row mt-12">
+        <h3 style="border-bottom: 2px #d08e73 solid;">Product pitches</h3>
+        {{ macro.displayPitches(product_pitches) }} 
+
+    </div>
+    <div class="row mt-12">
+        <h3 style="border-bottom: 2px #d08e73 solid;">Motivation pitches</h3>
+        {{ macro.displayPitches(motivation_pitches) }} 
+
+    </div>
+
 </div>
 {% endblock %}
