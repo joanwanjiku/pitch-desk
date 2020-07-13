@@ -1,11 +1,15 @@
 <header>
-    <a href="{{ url_for('main.index') }}"><h2>PitchDeck</h2></a>
+    <a href="{{ url_for('main.index') }}" style="color: #dc4b1f;"><h2>PitchDeck</h2></a>
     <nav>
         <ul>
-            <li><a href="{{ url_for('main.index') }}">Home</a></li>
-            <li><a href="">menu1</a></li>
-            <li><a href="">menu1</a></li>
-
+            <li><a href="{{ url_for('main.index') }}">Pitches</a></li>
+            <li><a href="{{ url_for('main.add_pitch') }}">Add pitch</a></li>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{url_for('main.profile', uname=current_user.name)}}">Profile</a></li>
+                <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+            {% else %}           
+                <li><a href="{{url_for('auth.login')}}">Sign In</a></li>
+            {% endif %}
         </ul>
     </nav>
 </header>
