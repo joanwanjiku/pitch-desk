@@ -16,7 +16,8 @@ class ProdConfg(Config):
     """
     configurations for prod environment inherits from Config
     """
-    pass
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+
 class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:123456@localhost/pitches_test'
 
