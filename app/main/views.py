@@ -13,6 +13,7 @@ def index():
     return render_template('main/index.html', title=title, pitches=pitches)
 
 @main.route('/add', methods= ['GET', 'POST'])
+@login_required
 def add_pitch():
     form = PitchForm()
     if form.validate_on_submit():
@@ -22,7 +23,7 @@ def add_pitch():
         # date = form.date.data
         # cat_int = int(category)
         # print(type(content))
-        pitch = Pitch(title=title, content=content, category_id=category)
+        pitch = Pitch(title=title, content=content, category_id=category, user=current_user)
         pitch.save_pitch()
         return redirect(url_for('main.index'))
     return render_template('main/create_pitch.html', pitch_form=form)
@@ -72,7 +73,35 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile', uname=uname))
 
- 
+@main.route('/upvote/<int:pitch_id>')
+@login_required
+def upvote(pitch_id):
+    pitch = Pitch.query.filter_by(id = pitch_id).first()
+    if pitch.upvotes is None:
+        pitch.upvotes = 0
+        pitch.upvotes += 1
+    else:
+        pitch.upvotes += 1
+    db.session.commit()
+    return redirect(url_for('main.index'))
+    
+    
+@main.route('/downvote/<int:pitch_id>')
+@login_required
+def downvote(pitch_id):
+    pitch = Pitch.query.filter_by(id = pitch_id).first()
+    if pitch.downvotes is None:
+        pitch.downvotes = 0
+        pitch.downvotes += 1
+    else:
+        pitch.downvotes += 1
+    db.session.commit()
+    return redirect(url_for('main.index'))
+
+@main.route('/comment/<int:pitch_id>')
+@login_required
+def comment_quotes(pitch_id):
+    pass
     
 
 
