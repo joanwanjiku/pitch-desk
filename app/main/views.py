@@ -1,16 +1,19 @@
 from flask import render_template, redirect, url_for, abort, request
-from .forms import PitchForm
+from .forms import PitchForm, CommentForm
 from ..auth.forms import UpdateForm
 from . import main
 from .. import photos, db
-from ..models import Pitch, Category, User
+from ..models import Pitch, Category, User, Comment
 from flask_login import login_required, current_user
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
     title = "Pitch"
-    pitches = Pitch.get_pitches()
-    return render_template('main/index.html', title=title, pitches=pitches)
+    movie_pitches = Pitch.get_pitches(27)
+    product_pitches = Pitch.get_pitches(26)
+    job_pitches = Pitch.get_pitches(31)
+    motivation_pitches = Pitch.get_pitches(32)
+    return render_template('main/index.html', title=title, movie_pitches=movie_pitches, product_pitches=product_pitches, job_pitches=job_pitches, motivation_pitches=motivation_pitches )
 
 @main.route('/add', methods= ['GET', 'POST'])
 @login_required
@@ -20,25 +23,17 @@ def add_pitch():
         title = form.title.data
         content = form.content.data
         category = form.category.data
-        # date = form.date.data
-        # cat_int = int(category)
-        # print(type(content))
         pitch = Pitch(title=title, content=content, category_id=category, user=current_user)
         pitch.save_pitch()
         return redirect(url_for('main.index'))
     return render_template('main/create_pitch.html', pitch_form=form)
-    
 
-# @main.route('/other')
-# def other_index():
-#     word = 'here'
-#     return render_template('main/index.html', title=word)
 
-# @main.route('/pitch')
-# def display_pitch():
-#     pitch = Pitch.get_pitches()
-#     print(pitch[1].category.name)
-#     return render_template('main/pitch.html', pitch=pitch)
+@main.route('/pitch/<int:pitch_id>')
+def display_pitch(pitch_id):
+    pitch = Pitch.get_pitch_by_id(pitch_id)
+    comments= Comment.get_all_comments(pitch_id)
+    return render_template('main/pitch.html', pitch=pitch, comments=comments)
 
 @main.route('/user/<uname>')
 def profile(uname):
@@ -98,10 +93,17 @@ def downvote(pitch_id):
     db.session.commit()
     return redirect(url_for('main.index'))
 
-@main.route('/comment/<int:pitch_id>')
+@main.route('/pitch//comment/new/<int:pitch_id>', methods=['GET', 'POST'])
 @login_required
-def comment_quotes(pitch_id):
-    pass
-    
+def comment_pitch(pitch_id):
+    comment_form = CommentForm()
+    pitch= Pitch.get_pitch_by_id(pitch_id)
+    if comment_form.validate_on_submit():
+        content = comment_form.content.data
+        new_comment = Comment(content=content, pitch_id=pitch_id)
+        db.session.add(new_comment)
+        db.session.commit()
 
+        return redirect(url_for('main.display_pitch', pitch_id=pitch_id))
+    return render_template('main/pitch_comment.html', form = comment_form, pitch=pitch)
 
