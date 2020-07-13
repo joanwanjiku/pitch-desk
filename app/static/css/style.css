@@ -10,6 +10,9 @@ body{
 }
 h3{
     font-size: 700;
+    text-align: center;
+    font-family: 'Grenze Gotisch', cursive;
+    color: #d08e73;
 }
 .btn{
     background-color: #b46750; 
@@ -35,17 +38,17 @@ nav ul{
     margin-right: .3em;
     list-style: none;
 }
-li{
+nav ul li{
     margin-right: .3em;
     padding: .5em;
     font-size: 2rem;
 
 }
-li:last-child{
+nav ul li:last-child{
     background-color: #b46750;
 
 }
-li:last-child:hover{
+nav ul li:last-child:hover{
     background-color: #b4675093;
     text-decoration: none;
 
