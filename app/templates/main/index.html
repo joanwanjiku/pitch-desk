@@ -1,1 +1,18 @@
-<h1>{{title}}</h1>
+{% extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        {{ wtf.quick_form(pitch_form) }}
+    </div>
+    <div class="row">
+        {% for pitch in pitches %}
+        <div class="card">
+           <h1>{{pitch.title}}</h1> 
+           <p>{{pitch.content}}</p>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
