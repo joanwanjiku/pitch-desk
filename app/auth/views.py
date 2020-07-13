@@ -4,6 +4,7 @@ from . import auth
 from ..models import User
 # from .. import db
 from .forms import RegistrationForm, LoginForm
+from ..email import mail_message
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def register():
@@ -13,10 +14,11 @@ def register():
         user = User(
             email = reg_form.email.data,
             name = reg_form.username.data,
-            password = reg_form.password.data,
-
+            password = reg_form.password.data
         )
         User.save_user(user)
+
+        mail_message("Welcome to watchlist","email/welcome_user",user.email,user=user)
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', signup_form= reg_form)
 
