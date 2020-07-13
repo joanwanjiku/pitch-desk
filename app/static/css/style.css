@@ -5,15 +5,17 @@ font-family: 'Lato', sans-serif; */
 
 body{
     background: #434136;
-    
+    color: white;    
 }
 header{
     display: flex;
     justify-content: space-between;
-    background-color: transparent;
     font-size: 1rem;
-    color:white;
+    color: #b5b496;
+    font-weight: bold;
+    font-family: 'Grenze Gotisch', cursive;
     text-align: center;
+    margin: .2em;
 }
 nav ul{
     display: flex;
@@ -22,14 +24,32 @@ nav ul{
 }
 li{
     margin-right: .3em;
-    padding: .3em;
+    padding: .5em;
+    font-size: 2rem;
+
 }
 li:last-child{
     background-color: #b46750;
+
+}
+li:last-child:hover{
+    background-color: #b4675093;
+    text-decoration: none;
+
 }
 ul a{
     text-decoration: none;
-    color: white;
+    color: #b5b496;
+    font-weight: bold;
+    font-family: 'Grenze Gotisch', cursive;
+    font-size: 2rem;
+}
+ul a:hover{
+    text-decoration: none;
+    color: #b5b496;
+    font-weight: bold;
+    font-family: 'Grenze Gotisch', cursive;
+    border-bottom: 2px #b5b496 solid;
 }
 @media (max-width: 768px){
     header{
