@@ -46,6 +46,11 @@ class Category(db.Model):
     def save_category(self):
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def get_all_cats(cls):
+        categorys = Category.query.all()
+        return categorys
     
 
 

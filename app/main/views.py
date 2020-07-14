@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, abort, request
-from .forms import PitchForm, CommentForm
+from .forms import PitchForm, CommentForm, CategoryForm
 from ..auth.forms import UpdateForm
 from . import main
 from .. import photos, db
@@ -9,24 +9,46 @@ from flask_login import login_required, current_user
 @main.route('/', methods=['GET', 'POST'])
 def index():
     title = "Pitch"
-    movie_pitches = Pitch.get_pitches(27)
-    product_pitches = Pitch.get_pitches(26)
-    job_pitches = Pitch.get_pitches(31)
-    motivation_pitches = Pitch.get_pitches(32)
+    movie_pitches = Pitch.get_pitches(1)
+    product_pitches = Pitch.get_pitches(2)
+    job_pitches = Pitch.get_pitches(3)
+    motivation_pitches = Pitch.get_pitches(4)
     return render_template('main/index.html', title=title, movie_pitches=movie_pitches, product_pitches=product_pitches, job_pitches=job_pitches, motivation_pitches=motivation_pitches )
+
+@main.route('/addcat', methods=['POST', 'GET'])
+@login_required
+def add_cat():
+    form = CategoryForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        cat = Category(name=name)
+        cat.save_category()
+        return redirect(url_for('main.add_pitch'))
+    return render_template('main/create_cat.html', form=form)
 
 @main.route('/add', methods= ['GET', 'POST'])
 @login_required
 def add_pitch():
     form = PitchForm()
-    if form.validate_on_submit():
-        title = form.title.data
-        content = form.content.data
-        category = form.category.data
-        pitch = Pitch(title=title, content=content, category_id=category, user=current_user)
+    categories = Category.get_all_cats()
+
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        cate = request.form['category']
+        pitch = Pitch(title=title, content=content, category_id=cate, user=current_user)
         pitch.save_pitch()
         return redirect(url_for('main.index'))
-    return render_template('main/create_pitch.html', pitch_form=form)
+    return render_template('main/create_pitch.html', pitch_form=form, categories=categories)
+
+    # if form.validate_on_submit():
+    #     title = form.title.data
+    #     content = form.content.data
+    #     category = form.category.data
+    #     pitch = Pitch(title=title, content=content, category_id=category, user=current_user)
+    #     pitch.save_pitch()
+    #     return redirect(url_for('main.index'))
+    # return render_template('main/create_pitch.html', pitch_form=form, categories=categories)
 
 
 @main.route('/pitch/<int:pitch_id>')

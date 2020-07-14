@@ -4,6 +4,8 @@
         <ul>
             <li><a href="{{ url_for('main.index') }}">Pitches</a></li>
             <li><a href="{{ url_for('main.add_pitch') }}">Add pitch</a></li>
+            <li><a href="{{ url_for('main.add_cat') }}">Add Category</a></li>
+
             {% if current_user.is_authenticated %}
                 <li><a href="{{url_for('main.profile', uname=current_user.name)}}">Profile</a></li>
                 <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
